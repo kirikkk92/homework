@@ -3,7 +3,7 @@ package com.company;
 public class Main {
 
     public static void main(String[] args) {
-        int s = showTime(18987);
+        int s = showTime(999);
     }
     public static int showTime (int s) {
         int h = 0;
@@ -15,7 +15,7 @@ public class Main {
             if (h <10) {
                 System.out.print("0");
                 System.out.print(h);}
-            else System.out.println(h);
+            else System.out.print(h);
             System.out.print(":");
             if (m < 10) {
                 System.out.print("0");
