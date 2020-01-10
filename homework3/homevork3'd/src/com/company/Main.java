@@ -4,7 +4,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int r = byteConverter(1, "ktb");
+        int r = byteConverter(1, "kb");
     }
 
     public static int byteConverter(int m, String res) {
