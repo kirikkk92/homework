@@ -24,22 +24,41 @@ public class Main {
                         reliss.addTasks();
                     } catch (MyExeption myExeption) {
                         System.err.println(myExeption.getMessage());
+                    }catch (MyExeption2 myExeption2) {
+                        System.err.println((myExeption2.getMessage()));
                     }
                     break;
                 case 2:
                     try {
                         reliss.chooseTask();
+                    } catch (MyExeption2 myExeption2) {
+                        System.err.println(myExeption2.getMessage2());
                     } catch (MyExeption myExeption) {
                         System.err.println(myExeption.getMessage());
                     }
+                    catch (MyExeption3 myExeption3) {
+                        System.err.println(myExeption3.getMessage());
+
+                    }
                     break;
                 case 3:
-                    reliss.getListTask();
+                    try {
+                        reliss.getListTask();
+                    }
+                    catch (MyExeption myExeption) {
+                        System.err.println(myExeption.getMessage());
+                    }
+                    catch (MyExeption2 myExeption2) {
+                        System.err.println(myExeption2.getMessage2());
+                    }
                     break;
                 case 4:
+
                     System.out.println("Хорошего Вам дня!");
                     bb = false;
-                    break;
+                    return;
+                default:
+                    System.err.println(" Неверно выбран пункт меню!");
             }
 
         }
