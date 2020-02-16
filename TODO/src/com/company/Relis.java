@@ -1,6 +1,5 @@
 package com.company;
 import java.io.*;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -8,58 +7,47 @@ public class Relis {
     static HashMap<Object, HashMap<Object, Enum>> map = new HashMap<>();//коллекция которая хранит <дату,<задачу,статус задачи>>
     static HashMap<Object, Enum> map2 = new HashMap<>();// коллекция которая хранит <задачу,статус задачи>
     static Tasks task = new Tasks();//объект задачи
-    static Data data = new Data();//объект статуса
-
+    static File f = new File("saveMap.txt");
 
     public static void addTasks() throws MyExeption, MyExeption2 {
 
         task.status = Status.NotCompleted;// устанавливаем статус задачи по умолчанию
         Scanner sc = new Scanner(System.in);
         System.out.println("Введите дату в формате \"DD/MM/YYYY\":");
-        data.date = sc.nextLine();
-
-        Proverka prov = new Proverka(data.date);
-
+        task.date = sc.nextLine();
+        Proverka prov = new Proverka(task.date);
         Scanner sc2 = new Scanner(System.in);
         System.out.println("Введите задачу:");
         task.description = sc2.nextLine();
-        if (map.containsKey(data.date)) { //проверяем,если map уже хранит введенную дату
-            HashMap<Object, Enum> map2 = map.get(data.date); //то записываем на эту дату еще одну задачу
+        if (map.containsKey(task.date)) { //проверяем,если map уже хранит введенную дату
+            HashMap<Object, Enum> map2 = map.get(task.date); //то записываем на эту дату еще одну задачу
             map2.put(task.description, task.status);
-            map.put(data.date, map2);
+            map.put(task.date, map2);
         } else {
-            map.put(data.date, new HashMap<Object, Enum>());//иначе создаем новую
-            HashMap<Object, Enum> map2 = map.get(data.date);
-            if (!map2.containsKey(data.date)) {
+            map.put(task.date, new HashMap<Object, Enum>());//иначе создаем новую
+            HashMap<Object, Enum> map2 = map.get(task.date);
+            if (!map2.containsKey(task.date)) {
                 map2.put(task.description, task.status);
             }
         }
-        /*Set set = map.entrySet();
+        Set set = map.entrySet();
         System.out.println("");
         for (Object o : set) {
             Map.Entry m = (Map.Entry) o;
-            System.out.println(m.getKey() + " " + m.getValue());
-        }*/
-        try {
-            FileWriter fw = new FileWriter("saveMap.txt",false);
-            fw.write (String.valueOf(map));
-            fw.write("\n");
-            fw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(m.getKey() + "br " + m.getValue());
         }
-
+        Save save = new Save(task.date,task.description,task.status);
     }
 
         public static void chooseTask() throws MyExeption, MyExeption2, MyExeption3 {
         Scanner sc = new Scanner(System.in);
         System.out.println("Введите дату для редакторования задач");
-        data.date = sc.nextLine();
-        Proverka proverka = new Proverka(data.date);
-        Proverka proverka1 = new Proverka(data.date,map);
+        task.date = sc.nextLine();
+        Proverka proverka = new Proverka(task.date);
+        Proverka proverka1 = new Proverka(task.date,map);
 
         System.out.println("Выберете задачу для редактирования:");
-        Object[] keyListArray = map.get(data.date).keySet().toArray();//записываем все задачи в массив
+        Object[] keyListArray = map.get(task.date).keySet().toArray();//записываем все задачи в массив
         for (int i = 0, j = 1; i <= keyListArray.length - 1; i++, j++) { //выводим весь список на экран
             System.out.print(j);
             System.out.print(". ");
@@ -80,20 +68,34 @@ public class Relis {
             int menu = sc3.nextInt();
             switch (menu) {
                 case 1:
-                    map.get(data.date).remove(keyListArray[chooseTask - 1]);//находим и удаляем выбранную задачу из коллекции
+                    map.get(task.date).remove(keyListArray[chooseTask - 1]);//находим и удаляем выбранную задачу из коллекции
                     Scanner sc4 = new Scanner(System.in);
                     System.out.println("Введите новое описание задачи:");
                     task.description = sc4.nextLine();
-                    map2 = (map.get(data.date)); //находим значение по выбранной дате и записываем в map2
+                    map2 = (map.get(task.date)); //находим значение по выбранной дате и записываем в map2
                     map2.put(task.description, task.status);//дозаписываем к коллекции map2 новое описание задачи
                     System.out.println("Задача изменена!");
+
+                    Scanner in = null;
                     try {
-                        FileWriter fw = new FileWriter("saveMap.txt");
-                        fw.write(String.valueOf(map));
-                        fw.close();
-                    } catch (IOException e) {
+                        in = new Scanner(f);
+                        while (in.hasNextLine()) { //считываем построчно из файла данные
+                            String readText = "";//каждый раз обнуляем строку,для записи в нее новых данных
+                            while (in.hasNext()) { //считываем всю строку
+                                readText = in.nextLine();
+                                System.out.println(readText);
+                                if (readText.startsWith(String.valueOf(keyListArray[chooseTask - 1]))) {
+                                    new Save(readText, String.valueOf(keyListArray[chooseTask - 1]), task.description);
+                                }
+                                System.out.println("s" + String.valueOf((keyListArray[chooseTask - 1])));
+                                System.out.println("red" + readText);
+                                System.out.println("taak" + task.description);
+                            }
+                        }
+                    }catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
+
                     break;
                 case 2:
                     while (true) {
@@ -101,7 +103,7 @@ public class Relis {
                         System.out.println("Вы действительно хотите удалить выбранную задачу?(y/n)");
                         String answer = sc5.nextLine();
                         if (answer.equals("y")) {
-                            map.get(data.date).remove(keyListArray[chooseTask - 1]);
+                            map.get(task.date).remove(keyListArray[chooseTask - 1]);
                             System.out.println("Задача удалена!");
                             break;
                         } else if (answer.equals("n")) {
@@ -110,19 +112,16 @@ public class Relis {
                         } else
                             System.out.println("Ошибка ввода.Повторите ввод!");
                     }
-
                     break;
                 case 3:
                     task.status = Status.Completed;
-                    map.get(data.date).put(keyListArray[chooseTask - 1], task.status);
+                    map.get(task.date).put(keyListArray[chooseTask - 1], task.status);
                     System.out.println("Задача отмеченна как \"выполненая\"!");
-
                     break;
                 case 4:
                     task.status = Status.NotCompleted;
-                    map.get(data.date).put(keyListArray[chooseTask - 1], task.status);
+                    map.get(task.date).put(keyListArray[chooseTask - 1], task.status);
                     System.out.println("Задача отмеченна как \"не выполненная\"!");
-
                     break;
                 case 5:
                     return;
@@ -155,7 +154,6 @@ public class Relis {
                     System.out.print("; Статус задачи: ");
                     System.out.println(m.getValue());
                 }
-
                 }
                 System.out.println("На сегодня ничего не запланированно!");
                 break;
@@ -168,7 +166,6 @@ public class Relis {
                 int week = Integer.parseInt(df3.format(dateNowLong));//находим день недели(1-7)
                 System.out.println("На эту неделю у вас запланированны следующие задачи: ");
                 for (;week < 8;week++) { // выводим на экран зачи до конца недели
-
                     if (map.containsKey(dateNowStr)) { //проверяем есть ли задача на данную дату
                         System.out.print(dateNowStr);
                         System.out.println(": ");
@@ -206,7 +203,6 @@ public class Relis {
             case 4:
                 System.out.println("Вот ваш весь список дел:");
                 Set set2 = map.entrySet();
-                //Set set3 = map2.entrySet();
                 if (map.isEmpty()) {
                     System.out.println("Список пуст!");
                 }else {
@@ -214,14 +210,51 @@ public class Relis {
                         Map.Entry m = (Map.Entry) o;
                     System.out.print(m.getKey());
                     System.out.println(": ");
-
                     System.out.println(m.getValue());
                     }
                 }
                 break;
             }
         }
+
+    public static void readFile() {
+        if (f.exists()) {
+            Scanner in = null;
+            try {
+                in = new Scanner(f);
+                while (in.hasNextLine()) { //считываем построчно из файла данные
+                    String readText = "";//каждый раз обнуляем строку,для записи в нее новых данных
+                    while (in.hasNext()) { //считываем всю строку
+                        readText = in.nextLine() + "\r\n";
+                        String[] readTextMass = readText.split("@"); //данные из каждой строки разбиваем на подстроки
+                        task.date = readTextMass[0];
+                        task.description = readTextMass[1];
+                        if (readTextMass[2].equals("NotCompleted")) {
+                            task.status = Status.NotCompleted;
+                        }
+                        task.status = Status.Completed;
+                        if (map.containsKey(task.date)) { //проверяем,если map уже хранит введенную дату
+                            HashMap<Object, Enum> map2 = map.get(task.date); //то записываем на эту дату еще одну задачу
+                            map2.put(task.description, task.status);
+                            map.put(task.date, map2);
+                        } else {
+                            map.put(task.date, new HashMap<Object, Enum>());//иначе создаем новую
+                            HashMap<Object, Enum> map2 = map.get(task.date);
+                            if (!map2.containsKey(task.date)) {
+                                map2.put(task.description, task.status);
+                            }
+                        }
+                    }
+                }
+                in.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }else
+            return;
     }
+}
+
 
 
 

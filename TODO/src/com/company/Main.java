@@ -7,11 +7,10 @@ public class Main {
     public static void main(String[] args) {
 
         Relis reliss = new Relis();
-
+        reliss.readFile();
 
         Scanner sc = new Scanner(System.in);
-        boolean bb;
-        while (bb = true) {
+        while (true) {
             System.out.println("Главное меню");
             System.out.println("1. Добавить задание");
             System.out.println("2. Выбрать задание");
@@ -53,12 +52,10 @@ public class Main {
                     }
                     break;
                 case 4:
-
                     System.out.println("Хорошего Вам дня!");
-                    bb = false;
                     return;
                 default:
-                    System.err.println(" Неверно выбран пункт меню!");
+                    System.err.println("Неверно выбран пункт меню!");
             }
 
         }
