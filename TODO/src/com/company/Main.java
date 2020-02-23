@@ -1,5 +1,6 @@
 package com.company;
 
+import java.io.File;
 import java.util.Scanner;
 
 public class Main {
@@ -7,8 +8,7 @@ public class Main {
     public static void main(String[] args) {
 
         Relis reliss = new Relis();
-        reliss.readFile();
-
+        reliss.readMapp();
         Scanner sc = new Scanner(System.in);
         while (true) {
             System.out.println("Главное меню");
@@ -37,7 +37,6 @@ public class Main {
                     }
                     catch (MyExeption3 myExeption3) {
                         System.err.println(myExeption3.getMessage());
-
                     }
                     break;
                 case 3:
@@ -52,6 +51,7 @@ public class Main {
                     }
                     break;
                 case 4:
+                    reliss.saveMapp();
                     System.out.println("Хорошего Вам дня!");
                     return;
                 default:

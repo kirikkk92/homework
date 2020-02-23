@@ -5,11 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
-public class Proverka {
+public class DataCheck {
 
     Date d;
 
-    public Proverka(String dat) throws MyExeption2, MyExeption {
+    public DataCheck(String dat) throws MyExeption2, MyExeption {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/y");
 
 
@@ -33,7 +33,7 @@ public class Proverka {
         }
     }
 
-    public Proverka(String data, HashMap map) throws MyExeption2, MyExeption {
+    public DataCheck(String data, HashMap map) throws MyExeption2, MyExeption {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         try {
             Date d = df.parse(data);
