@@ -1,10 +1,10 @@
 package com.company;
 
 public class MyExeption2 extends Exception {
-    public MyExeption2 (){
-        super();
-    }
     public String getMessage () {
-        return "Не верно выбрана задача!\nПовторите ввод";
+        return "Дата введенная Вами уже прошла!\nВведите дату начиная с сегодня!";
+    }
+    public String getMessage2 () {
+        return "На данную дату ничего не записанно!";
     }
 }
