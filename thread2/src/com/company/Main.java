@@ -63,11 +63,13 @@ public class Main {
                             e.printStackTrace();
                         }
                         int rand = new Random().nextInt(list20.size());
-                        Thread randPeople = list20.get(rand);
-                        randPeople.interrupt();
-                        happyList.add(randPeople.getName());
-                        list20.remove(randPeople);
-                        productInCounter--;
+                        synchronized (list20) {
+                            Thread randPeople = list20.get(rand);
+                            randPeople.interrupt();
+                            happyList.add(randPeople.getName());
+                            list20.remove(randPeople);
+                            productInCounter--;
+                        }
                     } else {
                         try {
                             Thread.sleep(100);//время похода на склад
@@ -87,7 +89,7 @@ public class Main {
         while (true)
         if (!addPeople.isAlive() && !seller.isAlive()){
             try {
-                Thread.sleep(5000);
+                Thread.sleep(6000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
