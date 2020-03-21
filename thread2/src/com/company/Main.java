@@ -19,29 +19,32 @@ public class Main {
             }
             @Override
             public synchronized void run() {
-                Thread ct = Thread.currentThread();
-                try {
-                    Thread.sleep(1000);
-                    unHappyList.add(ct.getName());
-                    list20.remove(ct);
-                    System.out.println(ct.getName() + " Я устал,я ухожу!");
+                synchronized (unHappyList) {
+                    Thread ct = Thread.currentThread();
+                    try {
+                        Thread.sleep(1000);//время ожидания покупателя в магазине
+                        unHappyList.add(ct.getName());
+                        list20.remove(ct);
+                        System.out.println(ct.getName() + " Я устал,я ухожу!");
 
-                } catch (InterruptedException e) {
-                    System.out.println(ct.getName() + " Я все купил!");
+                    } catch (InterruptedException e) {
+                        System.out.println(ct.getName() + " Я все купил!");
+                    }
                 }
             }
         }
         Thread addPeople = new Thread(new Runnable() {
             @Override
             public synchronized void run() {
-                for (int i = 1;i <= 100;){
-                    if (list20.size()>=20){
+
+                    for (int i = 1;i <= 100;) {
+                    if (list20.size() >= 20) {
                         try {
                             Thread.sleep(100);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                    }else {
+                    } else {
                         People people = new People(i);
                         list20.add(people);
                         people.start();
@@ -62,8 +65,8 @@ public class Main {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        int rand = new Random().nextInt(list20.size());
                         synchronized (list20) {
+                            int rand = new Random().nextInt(list20.size());
                             Thread randPeople = list20.get(rand);
                             randPeople.interrupt();
                             happyList.add(randPeople.getName());
@@ -85,21 +88,20 @@ public class Main {
         });
         addPeople.start();
         seller.start();
-
-        while (true)
-        if (!addPeople.isAlive() && !seller.isAlive()){
-            try {
-                Thread.sleep(6000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        while (true) {
+            if (!addPeople.isAlive() && !seller.isAlive()) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Список недовольных покупателей:  " + unHappyList);
+                System.out.println("Колличество покупателей которые остались недовольными: " + unHappyList.size());
+                System.out.println("Список довольных покупателей: " + happyList);
+                System.out.println("Колличество покупателей которые остались довольными:" + happyList.size());
+                System.out.println("Количество походов на склад: " + tripsToWarehouse);
+                return;
             }
-            System.out.println("Список недовольных покупателей:  " + unHappyList);
-            System.out.println("Колличество покупателей которые остались недовольными: " + unHappyList.size());
-
-            System.out.println("Список довольных покупателей: " + happyList);
-            System.out.println("Колличество покупателей которые остались довольными:" + happyList.size());
-            System.out.println("Количество походов на склад: " + tripsToWarehouse);
-            return;
         }
     }
 }
