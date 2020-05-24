@@ -1,0 +1,51 @@
+#head {
+    border: black 1px inset;
+    border-bottom-color: transparent;
+    height: 40px;
+    vertical-align: top;
+}
+.mail {
+    position: absolute;
+    right: 50px;
+}
+
+img {
+    position: absolute;
+    right: 10px;
+    height: 40px;
+    width: 40px;
+}
+.cont{
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: inset black 1px;
+    border-bottom-color: transparent;
+}
+.coment{
+    color:white;
+}
+.cont > div {
+    background: darkcyan;
+    text-align: left;
+    width: 60%;
+    border: darkblue 1px inset;
+    padding: 4px;
+    margin: 6px;
+    border-radius: 10px;
+}
+td {
+    border: 1px black inset;
+    width: 50%;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;    
+}
+#ref {
+    text-align: right;    
+}
+#user {
+    background: darkgray;
+}

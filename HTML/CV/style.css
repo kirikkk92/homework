@@ -1,0 +1,25 @@
+header {
+    background: blueviolet;
+    line-height: 25px;
+}
+img {
+    vertical-align: text-bottom;
+    width: 15%;
+    height: 15%;
+    border-radius: 50%;
+}
+#name{
+    background: wheat;
+    font-family: monospace;
+    margin-left: 10%;
+}
+.table{
+    width: 100%;
+}
+
+.first {
+    background: burlywood;
+}
+.second {
+    background: cornflowerblue;
+}

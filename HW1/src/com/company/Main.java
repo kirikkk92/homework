@@ -6,7 +6,7 @@ import java.util.Map;
 public class Main {
 
     public static void main(String[] args) {
-	    String s = "asdasdasfdfdfasdfadfnsdfdfsanf";
+	    String s = "ausdasdasfdfdfasdfadfnsdfdfsanf";
 	    String [] arr = s.split("");
         HashMap<String, Integer> map = new HashMap<>();
 	    int i =0;

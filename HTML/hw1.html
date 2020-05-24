@@ -1,0 +1,36 @@
+<DOCTYPE>
+    <html>
+        <head>
+            <title>
+                Google search
+            </title>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+            <p>Google search!</p>
+            <form action="https://www.google.com/search" method="GET">
+                <input name="q" placeholder="Введите запрос">
+                <br>
+                <table>
+                <tr>
+                    <td>Количество результатов на странице</td>
+                    <td><input name="num" type="number" value="5"></td>
+                </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td>Язык интерфейса</td>
+                        <td>
+                            <select name="hl">
+                                <option value="ru">Russian</option>
+                                <option value="en">English</option>
+                                <option selected value="be">Belarusian</option>
+                            </select> 
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <input type="submit" value="Search!">
+            </form>
+        </body>
+    </html>

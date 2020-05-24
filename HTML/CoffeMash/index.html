@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Chelsea+Market&family=Gloria+Hallelujah&family=Kaushan+Script&family=Sedgwick+Ave&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Coffe</title>
+</head>
+<body>
+    <header>Coffee to go</header>
+    <main>
+        <div id="flex">
+            <button class="btn" onclick="getAmericano()" id="americano"><img src="http://videocafe.lv/ru/ru-8.png"></button>
+            <button class="btn" onclick="getEspresso()" id="espresso"><img src="http://videocafe.lv/ru/ru-10.png"></button>
+            <button class="btn" onclick="get2Espresso()" id="2espresso"><img src="http://videocafe.lv/ru/ru-11.png"></button>
+        </div>
+        <br>
+        <div id="add">
+        <button class="btn" onclick="addCoffe()" id="addCoffe"><img class="add" src="https://www.philips.ru/c-dam/b2c/category-pages/Household/coffee/nl/indicator-lights/HD8751_11/HD8571_11_17_2x.png"></button>
+        <div id="dialog">Здраствуйте! <br>Выберете кофе!</div>
+        <button class="btn" onclick="addWater()" id="addWater"><img class="add" src="https://www.philips.ru/c-dam/b2c/category-pages/Household/coffee/nl/indicator-lights/HD8763_01/HD8763_01_25_2x.png"></button>
+        </div>
+        <div class="remains">
+            <span class="textRem" >Остаток кофе составляет: <output id="cof" name="coffe">500</output>гр</span>
+            <span class="textRem" >Остаток воды составляет: <output id="water" name="water">1000</output>мл</span>
+        </div>
+        <div class="remains">
+            <span class="rem" id="coffeRemains">&#9899 &#9899 &#9899 &#9899 &#9899</span>
+            <span class="rem" id="waterRemains">&#9899 &#9899 &#9899 &#9899 &#9899</span>
+        </div>
+    </main>
+    
+<script src="index.js"></script>
+</body>
+</html>
