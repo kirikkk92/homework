@@ -21,7 +21,7 @@ function max(a,b,c) {
     return c;
 }
 console.log("Наибольшее число которое Вы ввели: " + max(a,b,c));
-alert("Наибольшее число которое Вы ввели: " + max(a,b,c));
+alert("Наибольшее число которое Вы ввели: " + max(a,b,c) + a + b + c);
 
 console.log("Задание №3 (Угадай число)");
 function rand (min,maxi){

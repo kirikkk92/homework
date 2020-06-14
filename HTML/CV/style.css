@@ -1,24 +1,28 @@
 header {
-    background: blueviolet;
-    line-height: 25px;
+    background: url(https://million-wallpapers.ru/wallpapers/2/64/335185475206375/oblako-gaza.jpg);
+
 }
 img {
-    vertical-align: text-bottom;
-    width: 15%;
-    height: 15%;
+    
+    height: 185px;
     border-radius: 50%;
+    float: left;
 }
 #name{
-    background: wheat;
-    font-family: monospace;
-    margin-left: 10%;
+    font-family: 'Balsamiq Sans', cursive;
+
+    color: aliceblue;
+    font-size: 80px;
+    text-align: center;
+    margin: 0px;
+    
 }
 .table{
     width: 100%;
 }
 
 .first {
-    background: burlywood;
+    background: rgb(34, 108, 131);
 }
 .second {
     background: cornflowerblue;

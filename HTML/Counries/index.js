@@ -1,0 +1,44 @@
+function getAll() {
+    return new Promise((resolve,reject) => {
+        $.ajax({
+                url: 'https://restcountries.eu/rest/v2/all',
+            success(data) {
+                resolve(data);
+            },
+            error(err) {
+                reject(err);
+            }
+        }) ;   
+    });
+}
+let table = document.getElementsByTagName("table")[0];
+function creatTable(data) {
+    for(let strana of data) {
+        let tr = document.createElement('tr');
+        let tdCount = document.createElement('td');
+        let tdPop = document.createElement('td');
+        let tdFlag = document.createElement('td');
+        let tdTime = document.createElement('td');
+        tdCount.innerText = strana.name;
+        tdPop.innerText = strana.population;
+        tdFlag.innerText = strana.flag;
+        tdTime.innerText = strana.timezones;
+        tr.appendChild(tdCount);
+        tr.appendChild(tdPop);
+        tr.appendChild(tdFlag);
+        tr.appendChild(tdTime);
+        table.tBodies[0].appendChild(tr);
+    }
+}
+
+function startPage() {
+    getAll().then(
+        (data) =>{ 
+            creatTable(data);
+        },
+        (err) =>{
+        console.log (err);
+        }
+    )
+}
+startPage();
