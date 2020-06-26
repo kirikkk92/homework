@@ -8,11 +8,12 @@ function getAll() {
             error(err) {
                 reject(err);
             }
-        }) ;   
+        });   
     });
 }
 let table = document.getElementsByTagName("table")[0];
 function creatTable(data) {
+    table.tBodies[0].innerHTML = "";
     for(let strana of data) {
         let tr = document.createElement('tr');
         let tdCount = document.createElement('td');
@@ -42,3 +43,31 @@ function startPage() {
     )
 }
 startPage();
+ 
+let country = document.getElementById('country');
+
+function onSearch() {
+    let countryName = country.value;
+    getCountry(countryName).then(
+        (data) =>{ 
+            creatTable(data);
+        },
+        (err) =>{
+        console.log (err);
+        }
+    )
+}
+
+function getCountry(countryName) {
+     return new Promise((resolve,reject) => {
+         $.ajax({
+                url: 'https://restcountries.eu/rest/v2/name/' + countryName,
+            success(data) {
+                resolve(data);
+            },
+            error(err) {
+                reject(err);
+            }
+        });   
+    });
+}
